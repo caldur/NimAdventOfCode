@@ -5,7 +5,7 @@ var n = 0
 for line in lines("data/day4_input.txt"):
   var s = initSet[string]()
   var isValid = true
-  for word in rsplit(line, Whitespace):
+  for word in split(line, Whitespace):
     if s.contains(word):
       isValid = false
       break
