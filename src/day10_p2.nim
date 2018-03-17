@@ -1,6 +1,4 @@
 import strutils, sequtils, strformat
-#input
-var input = "187,254,0,81,169,219,1,190,19,102,255,56,46,32,2,216"
 
 proc Reverse(data: var seq[int], length: int, currentPos: var int, skipSize: var int) =
   var numElements = length
@@ -21,7 +19,7 @@ proc Reverse(data: var seq[int], length: int, currentPos: var int, skipSize: var
   currentPos = (currentPos + length + skipSize) mod data.len()
   skipSize += 1
 
-proc KnotHash(input: string): string =
+proc KnotHash*(input: string): string =
   #convert input into length seq
   var lengths = newSeq[int]()
   for c in input:
@@ -47,8 +45,11 @@ proc KnotHash(input: string): string =
       val = val xor list[j]
     output.add(val)
   #finalize output
-  echo output
-  var s = map(output) do (x: int) -> string: fmt"{x:x}"
+  assert output.len == 16
+  var s = map(output) do (x: int) -> string: fmt"{x:02x}"
   result = s.join()
 
-echo KnotHash(input)
+when isMainModule:
+  #input
+  var input = "187,254,0,81,169,219,1,190,19,102,255,56,46,32,2,216"
+  echo KnotHash(input)
